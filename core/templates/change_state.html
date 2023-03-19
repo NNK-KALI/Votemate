@@ -1,0 +1,24 @@
+{% extends "corebase.html" %}
+{% load static %}
+
+{% block head %}
+<title>Change Phase</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Change Phase</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    <strong><p>Current Phase: {{current_state}} </p> </strong>
+    <label for="change_state">change state</label>
+    <select id="" name="change_state">
+        <option value="registration">Registration</option>
+        <option value="voting">Voting</option>
+        <option value="results">Results</option>
+    </select>
+    <button type="submit" >set</button>
+
+</form>
+{% endblock%}

@@ -1,0 +1,61 @@
+{% extends "corebase.html" %}
+{% load static %}
+
+{% block head %}
+<title>
+  Voting Area
+</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/contestants_details.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+{% if current_phase == "voting" %}
+
+{% if already_voted == False %}
+{% for contestant in contestants_list %}
+  <div class="contestant">
+    <div class="icon">
+      <img src="{% static 'icons/profile_icon.png' %}" alt="">
+    </div>
+    <div class="details">
+      <div class="name">{{ contestant.name }}</div>
+      <div class="age">{{ contestant.age }}</div>
+      <div class="party">{{ contestant.party }}</div>
+      <div class="qualification">{{ contestant.qualification }}</div>
+      <form method="post" action="">
+        {% csrf_token %}
+        <input type="hidden" name="contestant_id" value="{{ contestant.id }}">
+        <input type="password" name="private_key" id="" minlength="64" maxlength="64">
+        <button type="submit" class="vote-button">Vote</button>
+      </form>
+    </div>
+  </div>
+{% endfor %}
+
+<!-- <script>
+  function submitVote(contestantName) {
+    var confirmation = confirm('Are you sure you want to vote for ' + contestantName + '?');
+    if (confirmation) {
+      var form = document.querySelector('form[action=""]');
+      form.submit();
+    }
+  }
+</script> -->
+
+
+</script>
+{% else %}
+<h3>Already voted.</h3>
+{% endif %}
+
+{% elif current_phase == "registration" %}
+<h3>Voting Didn't start yet</h3>
+{% elif current_phase == "results" %}
+<h3>Voting is Completed. Go check results.</h3>
+{% endif %}
+
+
+{% endblock %}

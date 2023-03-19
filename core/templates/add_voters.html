@@ -1,0 +1,38 @@
+{% extends "corebase.html" %}
+{% load static %}
+
+{% block head %}
+<title>
+  Add Voters
+</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Add Voters</h1>
+<form method="post">
+  {% csrf_token %}
+  <table>
+    <tr>
+      <th>check/uncheck</th>
+      <th>Aadhar Number</th>
+      <th>Public Key</th>
+    </tr>
+
+    {% for voter_details in voters_details %}
+    <tr>
+      <td> <input type="checkbox" name="public_keys" id="" value="{{voter_details.eth_public_key}}" checked> </td>
+      <td> {{voter_details.aadhaar_number}} </td>
+      <td> {{voter_details.eth_public_key}} </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% if voters_details|length > 0 %}
+    <button type="submit">Submit</button>
+  {% else %}
+    <p>no records</p>
+  {% endif %}
+</form>
+
+{% endblock %}

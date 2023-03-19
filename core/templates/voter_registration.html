@@ -1,0 +1,25 @@
+{% extends "corebase.html" %}
+{% load static %}
+
+{% block head %}
+<title>Voter Registration</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1>Voter Registration</h1>
+{% if already_registered == False %}
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="text" name="aadhaar_number" id="" minlength="12" maxlength="12" placeholder="Aadhar Number" autofocus
+        required>   
+    <input type="text" name="eth_public_key" id=""  minlength="42" maxlength="42" placeholder="Ethereum public key" required>
+    <button type="submit" >Register</button>
+</form>
+{% else %}
+<h2>Already registered</h2>
+{% endif %}
+
+{% endblock%}

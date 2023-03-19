@@ -1,0 +1,24 @@
+{% extends "corebase.html" %}
+{% load static %}
+
+{% block head %}
+<title>Add Contestant</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+<style>
+    
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Add contestant</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="text" name="contestant_name" id="" placeholder="contestant Name" autofocus, required>
+    <input type="number" name="contestant_age" id="" placeholder="contestant Age" , required>
+    <input type="text" name="contestant_party" id="" placeholder="Party" , required>
+    <input type="text" name="contestant_qualification" id="" placeholder="Qualification" required>
+    <button type="submit">Add contestant</button>
+
+</form>
+{% endblock%}

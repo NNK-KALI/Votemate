@@ -1,0 +1,31 @@
+
+h1 {
+    font-size: 4rem;
+}
+
+form {
+    margin: 1rem;
+}
+
+form > * {
+    font-size: 1.6rem;
+}
+
+form > select {
+    font-size: 1.6rem;
+    padding: 0;
+    margin: 1rem;
+    display: inline-block;
+}
+
+input {
+    width: 40rem;
+    display: block;
+    padding: 1rem;
+    margin: 1rem 0rem;
+}
+
+button {
+    width: 150px;
+    height: 35px;
+}

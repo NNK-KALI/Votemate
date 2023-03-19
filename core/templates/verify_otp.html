@@ -1,0 +1,22 @@
+{% extends 'corebase.html' %}
+
+{% load static %}
+
+{% block head %}
+<title>
+    Verify Otp
+</title>
+<link rel="stylesheet" href="{% static 'css/styles.css'%}">
+{% endblock %}
+{% block content %}
+  <h1>Verify OTP</h1>
+  <p>A One-Time Password (OTP) has been sent to your registered email. Please enter the OTP below to complete the registration process.</p>
+  <form method="post" action="{% url 'verify_otp' %}">
+    {% csrf_token %}
+    <div class="">
+      <label for="otp">Enter OTP</label>
+      <input type="text" class="" id="otp" name="otp" required>
+    </div>
+    <button type="submit" class="btn">Verify OTP</button>
+  </form>
+{% endblock %}

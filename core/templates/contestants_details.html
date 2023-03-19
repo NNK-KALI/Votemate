@@ -1,0 +1,28 @@
+{% extends "corebase.html" %}
+{% load static %}
+
+{% block head %}
+<title>Contestants Details</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/contestants_details.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Contestants Details</h1>
+<div class="contestants-container">
+    {% for contestant in contestants_list %}
+    <div class="contestant">
+      <div class="icon">
+        <img src="{% static 'icons/profile_icon.png' %}" alt="">
+      </div>
+      <div class="details">
+        <div class="name">{{contestant.name}}</div>
+        <div class="age">{{contestant.age}}</div>
+        <div class="party">{{contestant.party}}</div>
+        <div class="qualification">{{contestant.qualification}}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+{% endblock%}

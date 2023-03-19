@@ -1,0 +1,48 @@
+{% extends "corebase.html" %}
+{% load static %}
+
+{% block head %}
+<title>
+    Results
+</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="stats-container">
+    <h2>statistics</h2>
+    <p>Contestants count: {{ contestants_count }}</p>
+    <p>Registered voters count: {{ registered_voters_count }} </p>
+    <p>Total votes count: {{ total_votes_count }}</p>
+</div>
+
+<div>
+    {% if current_phase == "results" %}
+        {% if winners_count > 1  %}
+        <h3>Tie</h3>
+        {% else %}
+        <h3>Winner</h3>
+        {% endif %}
+    {% else %}
+    {% endif %}
+</div>
+<div class="results">
+    {% if current_phase == "results" %}
+    <table>
+        <tr>
+            <th>Contestant Name</th>
+            <th>votes</th>
+        </tr>
+        {% for winner in winners %}
+        <tr>
+            <td>{{ winner.name }}</td>
+            <td>{{ winner.voteCount }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <h3>Wait for the results.</h3>
+    {% endif %}
+</div>
+
+{% endblock %}

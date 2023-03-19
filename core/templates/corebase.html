@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}
+    {% endblock %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <style>
+        .messages {
+            font-size: 16px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+    
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+    
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+    
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+    
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        .alert-error {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+            <li> <b> hello, {{ user.email }}</b> </li>
+            <li class="right"><a href="{% url 'logout' %}">Logout</a></li>
+            {% if not user.is_superuser %}
+            <li class="left"><a href="{% url 'voter_registration' %}">Voter Registration</a></li>
+            <li class="left"><a href="{% url 'voting_area' %}">Voting Area</a></li>
+            {% endif %}
+            {% if user.is_superuser %}
+            <li class="right"><a href="{% url 'contestants_details' %}">Contestants Details</a></li>
+            <li class="left"><a href="{% url 'add_contestant' %}">Add Contestant</a></li>
+            <li class="left"><a href="{% url 'add_voters' %}">Add Voters</a></li>
+            <li class="left"><a href="{% url 'change_state' %}">Change State</a></li>
+            {% endif %}
+            <li class="left"><a href="{% url 'results' %}">Results</a></li>
+            {% else %}
+            <li class="right"><a href="{% url 'login' %}">Login</a></li>
+            <li class="right"><a href="{% url 'register' %}">Signup</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>
