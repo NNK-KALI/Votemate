@@ -4,19 +4,23 @@
 
 {% block head %}
 <title>
-    Verify Otp
+  Verify Otp
 </title>
-<link rel="stylesheet" href="{% static 'css/styles.css'%}">
 {% endblock %}
 {% block content %}
-  <h1>Verify OTP</h1>
-  <p>A One-Time Password (OTP) has been sent to your registered email. Please enter the OTP below to complete the registration process.</p>
-  <form method="post" action="{% url 'verify_otp' %}">
-    {% csrf_token %}
-    <div class="">
-      <label for="otp">Enter OTP</label>
-      <input type="text" class="" id="otp" name="otp" required>
-    </div>
-    <button type="submit" class="btn">Verify OTP</button>
-  </form>
+<h1 class="text-center h1 mb-5 mt-5">Verify OTP</h1>
+<div class="container d-flex justify-content-center">
+  <div class="row w-50 m-5">
+    <h5 class="text-center">A One-Time Password (OTP) has been sent to your registered email. Please enter the OTP below to complete the
+      registration process.</h5>
+    <form method="post" action="{% url 'verify_otp' %}" class="m-5">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label" for="otp">Enter OTP</label>
+        <input type="text" class="form-control" id="otp" name="otp" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Verify OTP</button>
+    </form>
+  </div>
+</div>
 {% endblock %}

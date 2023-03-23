@@ -5,35 +5,66 @@
 <title>
   Voting Area
 </title>
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
-<link rel="stylesheet" href="{% static 'css/contestants_details.css' %}">
 
 {% endblock %}
 
 {% block content %}
+<h1 class="h1 text-center mb-5 mt-5">Voting Area</h1>
+<div class="container justify-content-center">
 
-{% if current_phase == "voting" %}
+  {% if current_phase == "voting" %}
 
-{% if already_voted == False %}
-{% for contestant in contestants_list %}
-  <div class="contestant">
-    <div class="icon">
-      <img src="{% static 'icons/profile_icon.png' %}" alt="">
-    </div>
-    <div class="details">
-      <div class="name">{{ contestant.name }}</div>
-      <div class="age">{{ contestant.age }}</div>
-      <div class="party">{{ contestant.party }}</div>
-      <div class="qualification">{{ contestant.qualification }}</div>
-      <form method="post" action="">
-        {% csrf_token %}
-        <input type="hidden" name="contestant_id" value="{{ contestant.id }}">
-        <input type="password" name="private_key" id="" minlength="64" maxlength="64">
-        <button type="submit" class="vote-button">Vote</button>
-      </form>
+  {% if already_voted == False %}
+
+  {% for contestant in contestants_list %}
+  <div class="row mb-4">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4 d-flex justify-content-center align-items-center ">
+              <div class="overflow-hidden mx-auto" style="width: 100px; height: 100px;">
+                <img class="w-100 h-100" src="{% static 'icons/profile_icon.png' %}" alt="">
+              </div>
+            </div>
+            <div class="col-8">
+              <h5 class="card-title mb-3">Name: {{ contestant.name }}</h5>
+              <p class="card-text mb-1">Age: {{ contestant.age }}</p>
+              <p class="card-text mb-1">Party: {{ contestant.party }}</p>
+              <p class="card-text mb-1">Qualification: {{ contestant.qualification }}</p>
+              <form method="post" action="" class="row g-3 align-items-center mt-1">
+                {% csrf_token %}
+                <input type="hidden" name="contestant_id" value="{{ contestant.id }}">
+                <div class="col-auto">
+                  <label class="visually-hidden" for="private_key">Private Key</label>
+                  <input type="password" class="form-control" name="private_key" id="private_key" minlength="64" maxlength="64" placeholder="Enter Private Key">
+                </div>
+                <div class="col-auto">
+                  <button type="submit" class="btn btn-primary">Vote</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-{% endfor %}
+  {% endfor %}
+
+  {% else %}
+  <h3 class="h3 text-center mt-5 text-success">Already voted.</h3>
+  {% endif %}
+
+  {% elif current_phase == "registration" %}
+  <h3 class="h3 text-center mt-5 text-secondary">Voting hasn't started yet.</h3>
+  {% elif current_phase == "results" %}
+  <h3 class="h3 text-center mt-5 text-success">Voting has completed. Check the results.</h3>
+  {% endif %}
+
+</div>
+
+
+{% endblock %}
 
 <!-- <script>
   function submitVote(contestantName) {
@@ -44,18 +75,3 @@
     }
   }
 </script> -->
-
-
-</script>
-{% else %}
-<h3>Already voted.</h3>
-{% endif %}
-
-{% elif current_phase == "registration" %}
-<h3>Voting Didn't start yet</h3>
-{% elif current_phase == "results" %}
-<h3>Voting is Completed. Go check results.</h3>
-{% endif %}
-
-
-{% endblock %}

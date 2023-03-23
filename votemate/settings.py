@@ -145,3 +145,9 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ["HOST_GMAIL_ADDRESS"]
 EMAIL_HOST_PASSWORD = os.environ["GOOGLE_EMAIL_PASSWORD"]
+
+# Needed by Bootstrap 5 to display the error messages 
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}

@@ -3,22 +3,30 @@
 
 {% block head %}
 <title>Change Phase</title>
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
-<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}"> -->
 {% endblock %}
 
 {% block content %}
-<h1>Change Phase</h1>
-<form action="" method="post">
-    {% csrf_token %}
-    <strong><p>Current Phase: {{current_state}} </p> </strong>
-    <label for="change_state">change state</label>
-    <select id="" name="change_state">
-        <option value="registration">Registration</option>
-        <option value="voting">Voting</option>
-        <option value="results">Results</option>
-    </select>
-    <button type="submit" >set</button>
-
-</form>
+<h1 class="h1 text-center mb-5 mt-5">Change Phase</h1>
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="row w-25">
+        <form action="" method="post" class="mt-5">
+            {% csrf_token %}
+            <div class="mb-5">
+                <h4 class="h4 mb-5 text-primary"> Current Phase: {{current_state}}</h4>
+            </div>
+            <div class="mb-3">
+                <label for="change_state" class="form-label">change state</label>
+                <select class="form-select" id="" name="change_state">
+                    <option value="registration">Registration</option>
+                    <option value="voting">Voting</option>
+                    <option value="results">Results</option>
+                </select>
+            </div>
+            <button class="btn btn-warning" type="submit">Change state</button>
+    
+        </form>
+    </div>
+    </div>
 {% endblock%}

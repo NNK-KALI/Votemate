@@ -3,22 +3,33 @@
 
 {% block head %}
 <title>Add Contestant</title>
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
-<link rel="stylesheet" href="{% static 'css/forms.css' %}">
 <style>
     
 </style>
 {% endblock %}
 
 {% block content %}
-<h1>Add contestant</h1>
-<form action="" method="post">
-    {% csrf_token %}
-    <input type="text" name="contestant_name" id="" placeholder="contestant Name" autofocus, required>
-    <input type="number" name="contestant_age" id="" placeholder="contestant Age" , required>
-    <input type="text" name="contestant_party" id="" placeholder="Party" , required>
-    <input type="text" name="contestant_qualification" id="" placeholder="Qualification" required>
-    <button type="submit">Add contestant</button>
-
-</form>
+<h1 class="text-center h1 mt-5 mb-5">Add Contestant</h1>
+<div class="container d-flex justify-content-center">
+    <div class="row w-50">
+        <form action="" method="post" class="m-3">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input class="form-control" type="text"  name="contestant_name" id="" placeholder="contestant Name" autofocus, required>
+            </div>
+            <div class="mb-3">
+                <input class="form-control" type="number" name="contestant_age" id="" placeholder="contestant Age" , required>
+            </div>
+            <div class="mb-3">
+                <input class="form-control" type="text" name="contestant_party" id="" placeholder="Party" , required>
+            </div>
+            <div class="mb-3">
+                <input class="form-control" type="text" name="contestant_qualification" id="" placeholder="Qualification" required>
+            </div>
+    
+            <button type="submit" class="btn btn-primary">Add contestant</button>
+        
+        </form>
+    </div>
+</div>
 {% endblock%}

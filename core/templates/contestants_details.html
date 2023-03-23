@@ -3,26 +3,23 @@
 
 {% block head %}
 <title>Contestants Details</title>
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
-<link rel="stylesheet" href="{% static 'css/contestants_details.css' %}">
 {% endblock %}
 
 {% block content %}
-<h1>Contestants Details</h1>
-<div class="contestants-container">
+<h1 class="h1 text-center mt-5 mb-5">Contestants Details</h1>
+<div class="container-fluid">
+  <div class="d-flex flex-wrap m-5 justify-content-center align-items-center">
     {% for contestant in contestants_list %}
-    <div class="contestant">
-      <div class="icon">
-        <img src="{% static 'icons/profile_icon.png' %}" alt="">
-      </div>
-      <div class="details">
-        <div class="name">{{contestant.name}}</div>
-        <div class="age">{{contestant.age}}</div>
-        <div class="party">{{contestant.party}}</div>
-        <div class="qualification">{{contestant.qualification}}</div>
+    <div class="card mx-2 my-2" style="width: 16rem;">
+      <img class="card-img-top" src="{% static 'icons/profile_icon.png' %}" alt="">
+      <div class="card-body">
+        <h5 class="card-title mb-2"><b>Name: {{contestant.name}}</b></h5>
+        <p class="card-text mb-1">Age: {{contestant.age}}</p>
+        <p class="card-text mb-1">Party: {{contestant.party}}</p>
+        <p class="card-text mb-1">Qualification: {{contestant.qualification}}</p>
       </div>
     </div>
     {% endfor %}
   </div>
-
-{% endblock%}
+</div>
+{% endblock %}
