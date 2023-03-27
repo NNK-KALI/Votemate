@@ -124,48 +124,52 @@ def voter_registration(request):
     if request.method == "POST":
         aadhaar_number = request.POST.get("aadhaar_number")
         public_key = request.POST.get("eth_public_key")
-        # Get the record from the aadhaar database using the user's email
-        try:
-            voter = Aadhaar.objects.get(email=request.user.email)
-            # If we receive an object(i.e user with this email is present in Aadhaar table)
-            # then check if the user entered aadhaar number and aadhar number linked with
-            # user email in the Aadhar tabel in database
-            if voter is not None:
-                if aadhaar_number == voter.aadhaar_number:
-                    # Check for Age(MOST IMPORTANT)
-                    if voter.age >= 18:
-                        # Generate OTP
-                        otp = str(random.randint(100000, 999999))
-                        # Send OTP to user's email
-                        send_mail(
-                            "OTP Verification",
-                            f"Your OTP for Votemate is: {otp}",
-                            settings.EMAIL_HOST_USER,
-                            [request.user.email],
-                            fail_silently=False,
-                        )
-                        # Store OTP in session
-                        request.session["otp"] = otp
-                        request.session["aadhaar_number"] = aadhaar_number
-                        request.session["public_key"] = public_key
-                        # Redirect to OTP verification page
-                        return render(request, "verify_otp.html")
+        # check if eth_public_key is already present in the database
+        if Aadhaar.objects.filter(eth_public_key__in=public_key) != None:
+            messages.error(request, "public key is already present in the database.")
+        else:
+            # Get the record from the aadhaar database using the user's email
+            try:
+                voter = Aadhaar.objects.get(email=request.user.email)
+                # If we receive an object(i.e user with this email is present in Aadhaar table)
+                # then check if the user entered aadhaar number and aadhar number linked with
+                # user email in the Aadhar tabel in database
+                if voter is not None:
+                    if aadhaar_number == voter.aadhaar_number:
+                        # Check for Age(MOST IMPORTANT)
+                        if voter.age >= 18:
+                            # Generate OTP
+                            otp = str(random.randint(100000, 999999))
+                            # Send OTP to user's email
+                            send_mail(
+                                "OTP Verification",
+                                f"Your OTP for Votemate is: {otp}",
+                                settings.EMAIL_HOST_USER,
+                                [request.user.email],
+                                fail_silently=False,
+                            )
+                            # Store OTP in session
+                            request.session["otp"] = otp
+                            request.session["aadhaar_number"] = aadhaar_number
+                            request.session["public_key"] = public_key
+                            # Redirect to OTP verification page
+                            return render(request, "verify_otp.html")
+                        else:
+                            messages.error(request, "Under Age, Not eligible for voting.")
                     else:
-                        messages.error(request, "Under Age, Not eligible for voting.")
-                else:
-                    messages.error(
-                        request, "Aadhaar Number didn't match with the registered email"
-                    )
-        except Aadhaar.DoesNotExist as e:
-            print(e)
-            messages.error(
-                request, "No record found with this email in Aadhaar Database"
-            )
-        except Exception as e:
-            print(e)
-            messages.error(
-                request, "some error occured. make sure the details are correct"
-            )
+                        messages.error(
+                            request, "Aadhaar Number didn't match with the registered email"
+                        )
+            except Aadhaar.DoesNotExist as e:
+                print(e)
+                messages.error(
+                    request, "No record found with this email in Aadhaar Database"
+                )
+            except Exception as e:
+                print(e)
+                messages.error(
+                    request, "some error occured. make sure the details are correct"
+                )
 
     voter = Aadhaar.objects.get(email=request.user.email)
     already_registered = voter.is_eligible

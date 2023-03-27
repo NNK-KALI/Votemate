@@ -19,7 +19,8 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
-    # handles login and other functionality
+
+    # handles login and other functionality provided by the django
     # Set LOGIN_REDIRECT_URL and LOGOUT_REDIRECT_URL
     path("accounts/", include("django.contrib.auth.urls")),
     path("", include("core.urls")),
