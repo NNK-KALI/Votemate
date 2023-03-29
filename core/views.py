@@ -125,7 +125,7 @@ def voter_registration(request):
         aadhaar_number = request.POST.get("aadhaar_number")
         public_key = request.POST.get("eth_public_key")
         # check if eth_public_key is already present in the database
-        if Aadhaar.objects.filter(eth_public_key__in=public_key) != None:
+        if Aadhaar.objects.filter(eth_public_key=public_key).exists():
             messages.error(request, "public key is already present in the database.")
         else:
             # Get the record from the aadhaar database using the user's email
