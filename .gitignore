@@ -174,3 +174,6 @@ smart_contracts/test.py
 notes.txt
 contestants_list.txt
 aadhaar_list.txt
+
+# nohup files
+nohup.out
